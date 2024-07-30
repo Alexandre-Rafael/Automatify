@@ -3,13 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PyScript Interface</title>
-    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-    <link rel="stylesheet" href="styles.css">
+    <title>PyScript Interface</title>  
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" /><!-- #documentação do pyscript: https://docs.pyscript.net/2024.7.1/ -->
+ 
+    <link rel="stylesheet" href="styles.css"><!-- #Outra informação valiosa é que para testar o AFD você deve clicar em '' testar AFN '' temos um bug -->
+
     <script defer src="https://pyscript.net/latest/pyscript.js"></script>
     <style>
         body {
-            background-image: url('/assets/imitacao.jpeg'); /* imagem de fundo */
+            background-image: url('/assets/imitacao.jpeg');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -51,7 +53,7 @@
     <py-script>
         from js import document, window
 
-        # inicializa variáveis globais
+        # Inicializa variáveis globais
         estado_ini = ''
         estados_finais = []
         estados = []
@@ -59,41 +61,41 @@
         transicoes = {}
         tipo_automato = ""
 
-        # variáveis globais para armazenar o AFD
+        # Variáveis globais para armazenar o AFD
         afd_estados = []
         afd_alfabeto = []
         afd_estado_inicial = ''
         afd_estados_finais = []
         afd_transicoes = {}
 
-        # variáveis globais para armazenar o AFD minimizado
+        # Variáveis globais para armazenar o AFD minimizado
         afd_min_estados = []
         afd_min_alfabeto = []
         afd_min_estado_inicial = ''
         afd_min_estados_finais = []
         afd_min_transicoes = {}
 
-        # função para imprimir mensagens no div "content"
+        # Função para imprimir mensagens no div "content"
         def print_message(message): 
             document.getElementById("content").innerHTML += f'<p class="message">{message}</p>'
 
-        # função para mostrar resultados no div "result"
+        # Função para mostrar resultados no div "result"
         def show_result(message):
             result_div = document.getElementById("result")
             result_content = document.getElementById("result-content")
             result_content.innerHTML = f'<pre>{message}</pre>'
             result_div.style.display = "block"
 
-        # função para fechar o div "result"
+        # Função para fechar o div "result"
         def close_result():
             result_div = document.getElementById("result")
             result_div.style.display = "none"
 
-        # função para limpar o estado final
+        # Função para limpar o estado final
         def clear_final_state():
             document.getElementById("status").innerHTML = ""
 
-        # função para exibir o menu principal
+        # Função para exibir o menu principal
         def main_menu():
             document.getElementById("content").style.display = "none"
             close_result()
@@ -106,7 +108,7 @@
             """
             document.getElementById("menu").innerHTML = menu
 
-        # função para lidar com as opções do menu principal
+        # Função para lidar com as opções do menu principal
         def handle_option(option):
             document.getElementById("content").style.display = "none"
             document.getElementById("content").innerHTML = ""
@@ -120,11 +122,11 @@
                 print_message("Minimizando AFD...")
                 minimiza_afd_demo()
             elif option == 4:
-                print_message("Fechando... Adeus =D")
+                print_message("Fechando")
             else:
                 print_message("Opção inválida!")
 
-        # função para exibir o menu de criação
+        # Função para exibir o menu de criação
         def create_menu():
             create_options = """
             <h2>Menu de opções</h2>
@@ -135,7 +137,7 @@
             """
             document.getElementById("content").innerHTML = create_options
 
-        # função para lidar com as opções de criação
+        # Função para lidar com as opções de criação
         def handle_create_option(option):
             document.getElementById("content").style.display = "block"
 
@@ -162,15 +164,15 @@
                 print_message("Voltando para o menu principal.")
                 main_menu()
 
-        # função para criar um autômato
+        # Função para criar um autômato
         def create_automato(tipo):
             global estado_ini, estados_finais, estados, alfabeto, transicoes
             global afd_estados, afd_alfabeto, afd_estado_inicial, afd_estados_finais, afd_transicoes
 
-            estados = window.prompt("Informe o conjunto de estados:").split() /* solicita os estados */
-            alfabeto = window.prompt("Informe a linguagem do automato:").split() /* solicita o alfabeto */
-            estado_ini = window.prompt("Informe o estado inicial:") /* solicita o estado inicial */
-            estados_finais = window.prompt("Informe o(s) estado(s) final(is):").split() /* solicita os estados finais */
+            estados = window.prompt("Informe o conjunto de estados:").split()
+            alfabeto = window.prompt("Informe a linguagem do automato:").split()
+            estado_ini = window.prompt("Informe o estado inicial:")
+            estados_finais = window.prompt("Informe o(s) estado(s) final(is):").split()
             transicoes = {}
             print_message('Defina o delta (transições):')
             for estado in estados:
@@ -188,7 +190,7 @@
 
             print_message(f"{tipo} criado com sucesso! (simulação)")
 
-        # função para minimizar um AFD (demonstração)
+        # Função para minimizar um AFD (demonstração)
         def minimiza_afd_demo():
             global afd_estados, afd_alfabeto, afd_estado_inicial, afd_estados_finais, afd_transicoes
             print_message("Minimizando AFD...")
@@ -206,7 +208,7 @@
             )
             show_result(result_message)
 
-        # função para converter um AFN para AFD
+        # Função para converter um AFN para AFD
         def converte_afnafd():
             import itertools
 
@@ -260,13 +262,13 @@
             )
             show_result(result_message)
 
-        # função para testar uma linguagem em um AFD ou AFN
+        # Função para testar uma linguagem em um AFD ou AFN
         def testar_linguagem(tipo):
             global estado_ini, estados_finais, estados, alfabeto, transicoes
             global afd_estados, afd_alfabeto, afd_estado_inicial, afd_estados_finais, afd_transicoes
 
             if tipo == 'AFD':
-                entrada = window.prompt("Informe a palavra de entrada:") /* solicita a palavra de entrada */
+                entrada = window.prompt("Informe a palavra de entrada:")
                 estado_atual = afd_estado_inicial
                 reconhecida = True
                 
@@ -283,7 +285,7 @@
                     show_result(f"Palavra '{entrada}' não reconhecida!")
 
             elif tipo == 'AFN':
-                entrada = window.prompt("Informe a palavra de entrada:") /* solicita a palavra de entrada */
+                entrada = window.prompt("Informe a palavra de entrada:")
                 estados_atuais = [estado_ini]
                 
                 for simbolo in entrada:
@@ -300,24 +302,24 @@
                 else:
                     show_result(f"Palavra '{entrada}' não reconhecida!")
 
-        # função para minimizar um AFD
+        # Função para minimizar um AFD
         def minimizar_afd(estados, alfabeto, estado_inicial, estados_aceitacao, transicoes):
-            # verifica se dois estados são distinguíveis
+            # Verifica se dois estados são distinguíveis
             def sao_distinguiveis(est1, est2, particao):
                 for simbolo in alfabeto:
                     prox_est1 = transicoes.get((est1, simbolo), None)
                     prox_est2 = transicoes.get((est2, simbolo), None)
-                    if prox_est1 is None ou prox_est2 is None:
+                    if prox_est1 is None or prox_est2 is None:
                         return True
                     if particao.get(prox_est1, None) != particao.get(prox_est2, None):
                         return True
                 return False
 
-            # cria a partição inicial
+            # Cria a partição inicial
             particao = {estado: 1 if estado in estados_aceitacao else 0 for estado in estados}
             alteracao = True
 
-            # refina a partição até não haver mais mudanças
+            # Refina a partição até não haver mais mudanças
             while alteracao:
                 alteracao = False
                 for est1 in estados:
@@ -327,7 +329,7 @@
                                 particao[est2] = max(particao.values()) + 1
                                 alteracao = True
 
-            # cria os novos estados e transições
+            # Cria os novos estados e transições
             estados_min = set(particao.values())
             d_trans_min = {}
             estado_inicial_min = particao[estado_inicial]
@@ -339,37 +341,37 @@
 
             return estados_min, alfabeto, estado_inicial_min, estados_aceitacao_min, d_trans_min
 
-        # exibe o menu principal ao iniciar
+        # Exibe o menu principal ao iniciar
         main_menu()
     </py-script>
 
     <script>
-        // função para lidar com opções do menu principal
+        // Função para lidar com opções do menu principal
         function handleOption(option) {
             pyscript.interpreter.globals.get('handle_option')(option);
         }
 
-        // função para lidar com opções de criação
+        // Função para lidar com opções de criação
         function handleCreateOption(option) {
             pyscript.interpreter.globals.get('handle_create_option')(option);
         }
 
-        // função para lidar com opções de teste de linguagem
+        // Função para lidar com opções de teste de linguagem
         function handleTestOption(type) {
             pyscript.interpreter.globals.get('testar_linguagem')(type);
         }
 
-        // função para exibir o menu principal
+        // Função para exibir o menu principal
         function main_menu() {
             pyscript.interpreter.globals.get('main_menu')();
         }
 
-        // função para fechar o resultado
+        // Função para fechar o resultado
         function closeResult() {
             pyscript.interpreter.globals.get('close_result')();
         }
 
-        // exibe o menu principal ao carregar a página
+        // Exibe o menu principal ao carregar a página
         window.onload = function() {
             main_menu();
         };
