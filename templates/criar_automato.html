@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Criar {{ tipo.upper() }}</h2>
+
+{% if etapa == 1 %}
+<form method="POST" id="content" style="text-align: center;">
+    <input type="hidden" name="salvar_dados" value="true">
+    
+    {% if erro %}
+    <div style="color: red;">{{ erro }}</div>
+    {% endif %}
+    
+    <label for="estados">Estados:</label><br>
+    <input type="text" name="estados" id="estados" placeholder="Ex: q0 q1 q2" value="{{ estados }}"><br><br>
+
+    <label for="alfabeto">Alfabeto:</label><br>
+    <input type="text" name="alfabeto" id="alfabeto" placeholder="Ex: a b" value="{{ alfabeto }}"><br><br>
+
+    <label for="est_inicial">Estado Inicial:</label><br>
+    <input type="text" name="est_inicial" id="est_inicial" placeholder="Ex: q0" value="{{ est_inicial }}"><br><br>
+
+    <label for="estados_finais">Estados Finais:</label><br>
+    <input type="text" name="estados_finais" id="estados_finais" placeholder="Ex: q2" value="{{ estados_finais }}"><br><br>
+
+    <button type="submit" class="button_testar">Próximo</button>
+</form>
+
+{% elif etapa == 2 %}
+<form method="POST" id="content" style="text-align: center;">
+    <input type="hidden" name="salvar_transicoes" value="true">
+    <input type="hidden" name="estados" value="{{ ' '.join(estados) }}">
+    <input type="hidden" name="alfabeto" value="{{ ' '.join(alfabeto) }}">
+    <input type="hidden" name="est_inicial" value="{{ est_inicial }}">
+    <input type="hidden" name="estados_finais" value="{{ ' '.join(estados_finais) }}">
+
+    {% if erro %}
+    <div style="color: red;">{{ erro }}</div>
+    {% endif %}
+    
+    <label>Transições:</label><br>
+    {% for estado in estados %}
+        {% for simbolo in alfabeto %}
+            <label for="trans_{{ estado }}_{{ simbolo }}">{{ estado }} -> {{ simbolo }}:</label>
+            <input type="text" name="trans_{{ estado }}_{{ simbolo }}" id="trans_{{ estado }}_{{ simbolo }}" value="{{ transicoes.get((estado, simbolo), '') }}"><br>
+        {% endfor %}
+    {% endfor %}
+    <br>
+    <button type="submit" class="button_testar">Salvar Autômato</button>
+</form>
+
+{% elif etapa == 3 %}
+<div id="content" style="text-align: center;">
+    <h3>Autômato {{ tipo.upper() }} criado com sucesso!</h3>
+    {% if imagem %}
+        <h3>Imagem do {{ tipo.upper() }}:</h3>
+        <img src="{{ url_for('static', filename=imagem) }}" alt="Imagem do Automato">
+    {% endif %}
+</div>
+{% endif %}
+
+<a href="{{ url_for('index') }}"><button class="button_testar">Voltar ao Menu Principal</button></a>
+{% endblock %}

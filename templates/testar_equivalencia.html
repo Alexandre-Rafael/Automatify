@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Testar Equivalência entre Autômatos</h2>
+<div id="content" style="text-align: center;">
+    
+    {% if resultado %}
+        <h3>{{ resultado }}</h3>
+    {% endif %}
+
+    <h4>Palavras aceitas em ambos:</h4>
+    <ul>
+        {% if aceitas_ambos %}
+            {% for palavra in aceitas_ambos %}
+                <li>{{ palavra }}</li>
+            {% endfor %}
+        {% else %}
+            <li>Nenhuma palavra aceita em ambos.</li>
+        {% endif %}
+    </ul>
+
+    <h4>Palavras rejeitadas em ambos:</h4>
+    <ul>
+        {% if rejeitadas_ambos %}
+            {% for palavra in rejeitadas_ambos %}
+                <li>{{ palavra }}</li>
+            {% endfor %}
+        {% else %}
+            <li>Nenhuma palavra rejeitada em ambos.</li>
+        {% endif %}
+    </ul>
+
+    {% if erro %}
+        <h3>Erro:</h3>
+        <p>{{ erro }}</p>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}"><button class="button_testar">Voltar ao Menu Principal</button></a>
+</div>
+{% endblock %}

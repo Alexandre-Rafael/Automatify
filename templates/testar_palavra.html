@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Testar Palavra no {{ tipo.upper() }}</h2>
+<div id="content" style="text-align: center;">
+    <form method="POST" style="text-align: center;">
+        <label>Digite a palavra:</label><br>
+        <input type="text" name="palavra"><br><br>
+        <input type="submit" value="Testar Palavra" class="close-btn">
+    </form>
+
+    {% if resultado_teste %}
+        <h3>Resultado:</h3>
+        <p>{{ resultado_teste }}</p>
+    {% endif %}
+</div>
+<a href="{{ url_for('index') }}"><button class="button_testar">Voltar ao Menu Principal</button></a>
+{% endblock %}

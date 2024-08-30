@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Menu Principal</h2>
+<div id="content">
+    <a href="{{ url_for('criar_automato', tipo='afd') }}"><button>Criar AFD</button></a>
+    <a href="{{ url_for('criar_automato', tipo='afn') }}"><button>Criar AFN</button></a>
+    <a href="{{ url_for('testar_palavra', tipo='afd') }}"><button>Testar Palavra no AFD</button></a>
+    <a href="{{ url_for('testar_palavra', tipo='afn') }}"><button>Testar Palavra no AFN</button></a>
+    <a href="{{ url_for('converter_afn_afd') }}"><button>Converter AFN para AFD</button></a>
+    <a href="{{ url_for('minimizar_afd') }}"><button>Minimizar AFD</button></a>
+    <a href="{{ url_for('testar_equivalencia') }}"><button class="button_testar">Testar Equivalência</button></a>
+    <a href="{{ url_for('testar_mt') }}"><button class="button_testar">Testar Máquina de Turing</button></a>
+
+</div>
+{% endblock %}

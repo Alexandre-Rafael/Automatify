@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Testar Máquina de Turing</h2>
+<div id="content" style="text-align: center;">
+    <form method="POST" action="{{ url_for('testar_mt') }}" enctype="multipart/form-data">
+        <label for="mt_arquivo">Escolha o arquivo JSON da Máquina de Turing:</label>
+        <input type="file" name="mt_arquivo" id="mt_arquivo" accept=".json"><br><br>
+
+        {% if session.mt_arquivo_path %}
+            <p>Arquivo atualmente carregado: {{ session.mt_arquivo_path }}</p>
+        {% endif %}
+
+        <label for="palavra_entrada">Digite a palavra de entrada:</label>
+        <input type="text" name="palavra_entrada" id="palavra_entrada"><br><br>
+
+        <input type="submit" value="Testar Palavra" class="button_testar">
+    </form>
+
+    {% if resultado is not none %}
+        <h3>Resultado: {{ resultado }}</h3>
+    {% endif %}
+
+    {% if erro %}
+        <h3>Erro:</h3>
+        <p>{{ erro }}</p>
+    {% endif %}
+    
+    <a href="{{ url_for('index') }}"><button class="button_testar">Voltar ao Menu Principal</button></a>
+</div>
+{% endblock %}

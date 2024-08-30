@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Minimizar AFD</h2>
+<div id="content" style="text-align: center;">
+    <form method="POST" style="text-align: center;">
+        <input type="submit" value="Minimizar" class="close-btn">
+    </form>
+
+    {% if imagem %}
+        <h3>Imagem do AFD Minimizado:</h3>
+        <img src="{{ url_for('static', filename=imagem) }}" alt="Imagem do AFD Minimizado">
+    {% endif %}
+</div>
+<a href="{{ url_for('index') }}"><button class="button_testar">Voltar ao Menu Principal</button></a>
+{% endblock %}
