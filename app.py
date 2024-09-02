@@ -338,6 +338,9 @@ def minimizar_afd():
 
 @app.route('/testar_mt', methods=['GET', 'POST'])
 def testar_mt():
+    resultado = None  # Definido como None por padrão
+    erro = None
+
     if request.method == 'POST':
         if 'mt_arquivo' in request.files and request.files['mt_arquivo'].filename != '':
             mt_arquivo = request.files['mt_arquivo']
@@ -349,16 +352,17 @@ def testar_mt():
             palavra_entrada = request.form['palavra_entrada']
             try:
                 mt = carregar_maquina_turing_de_json(session['mt_arquivo_path'])
-                resultado = "Sim" if mt.executar(palavra_entrada) else "Não"
+                resultado_execucao = mt.executar(palavra_entrada)
+
+                resultado = {
+                    "aceito": "Sim" if resultado_execucao['aceito'] else "Não",
+                    "resultado_fita": resultado_execucao['resultado_fita']
+                }
+
             except Exception as e:
                 erro = f"Erro ao processar a Máquina de Turing: {e}"
-                return render_template('testar_mt.html', erro=erro)
-            return render_template('testar_mt.html', resultado=resultado)
-        else:
-            erro = "Nenhum arquivo JSON foi carregado."
-            return render_template('testar_mt.html', erro=erro)
 
-    return render_template('testar_mt.html')
+    return render_template('testar_mt.html', resultado=resultado, erro=erro)
 
 if __name__ == "__main__":
     app.run(debug=True)

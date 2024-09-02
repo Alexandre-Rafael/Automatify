@@ -17,8 +17,10 @@
         <input type="submit" value="Testar Palavra" class="button_testar">
     </form>
 
-    {% if resultado is not none %}
-        <h3>Resultado: {{ resultado }}</h3>
+    {% if resultado %}
+        <h3>Resultado da Execução:</h3>
+        <p>Aceito: {{ resultado['aceito'] }}</p>
+        <p>Resultado da Fita: {{ resultado['resultado_fita'] }}</p>
     {% endif %}
 
     {% if erro %}
